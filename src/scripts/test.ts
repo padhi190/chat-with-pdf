@@ -1,33 +1,40 @@
-import { SupabaseVectorStore } from "langchain/vectorstores/supabase";
-import { Supabase } from "@/utils/supabase";
-import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
-import { makeChain } from '@/utils/makechain';
-import { ConversationalRetrievalQAChain, VectorDBQAChain } from 'langchain/chains';
-import { OpenAI } from 'langchain/llms/openai';
+import endent from 'endent';
 
 const run = async () => {
-    const supabaseClient = Supabase.getInstance();
 
-    const vectorStore = await SupabaseVectorStore.fromExistingIndex(new OpenAIEmbeddings(), {
-        client: supabaseClient,
-        tableName: "documents",
-        queryName: "match_documents",
+    const query = "What was Upland's revenue growth?";
+    const matches = 2;
+
+    const searchResp = await fetch('http://localhost:3000/api/search', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({query, matches})
     })
 
-    const chain = ConversationalRetrievalQAChain.fromLLM(
-        new OpenAI(),
-        vectorStore.asRetriever(2),
-        { returnSourceDocuments: true }
-    )
+    const sources = await searchResp.json();
 
-    const response = await chain.call({
-        question: "What is High-Touch Customer Success Program?",
-        chat_history: []
+    console.log({ sources });
+
+    const prompt = endent`
+    Use the following passages to provide an answer to the query: "${query}"
+
+    Upland annual report data:
+    ${sources?.map((d: any) => d.content).join("\n\n")}
+    `;
+
+    const completionResp = await fetch('http://localhost:3000/api/completion', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({prompt})
     })
-    console.log(response);
-    // const result = await vectorStore.similaritySearch("How many acquisitions did Upland made?", 4);
 
+    const answer = await completionResp.json();
 
+    console.log({answer})
     
 }
 

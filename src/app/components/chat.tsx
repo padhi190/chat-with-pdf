@@ -1,3 +1,5 @@
+import Typing from './typing';
+
 export interface Source {
   content: String;
   metadata: {
@@ -38,6 +40,7 @@ export interface Message {
 
 interface Props {
   messages: Message[];
+  isLoading: boolean;
 }
 
 const ChatUser = ({ content }: { content: String }) => {
@@ -63,9 +66,9 @@ const ChatAssistant = ({
   );
 };
 
-export default function Chat({ messages }: Props) {
+export default function Chat({ messages, isLoading }: Props) {
   return (
-    <div className='flex flex-col gap-4'>
+    <div className="flex flex-col gap-4">
       {messages.map((message, i) =>
         message.role === 'assistant' ? (
           <ChatAssistant
@@ -77,6 +80,7 @@ export default function Chat({ messages }: Props) {
           <ChatUser key={i} content={message.content} />
         )
       )}
+      {isLoading && <Typing />}
     </div>
   );
 }

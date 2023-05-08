@@ -1,6 +1,7 @@
 import Typing from './typing';
 
 export interface Source {
+  id: number;
   content: String;
   metadata: {
     loc: {
@@ -51,6 +52,25 @@ const ChatUser = ({ content }: { content: String }) => {
   );
 };
 
+const SourceComp = ({ source, index }: { source: Source; index: number }) => {
+  return (
+    <>
+      <div className="mt-2 border rounded-lg collapse collapse-arrow border-slate-100">
+        <input type="checkbox" className="peer" />
+        <div className="collapse-title">
+          {`Source ${index}: `}
+          {source.metadata.source.split('/')[7]} page{' '}
+          {source.metadata.loc.pageNumber.toString()}
+        </div>
+        <div className="collapse-content">
+          {/* <p>{source.content.slice(0, 250)}..</p> */}
+          <p>{source.content}</p>
+        </div>
+      </div>
+    </>
+  );
+};
+
 const ChatAssistant = ({
   content,
   sources,
@@ -60,8 +80,13 @@ const ChatAssistant = ({
 }) => {
   return (
     <div className="chat chat-start">
-      <div className="chat-bubble chat-bubble-accent">{content}</div>
-      {/* {JSON.stringify(sources)} */}
+      <div className="chat-bubble chat-bubble-accent">
+        <div className="mb-4">{content}</div>
+
+        {sources?.map((source, i) => (
+          <SourceComp key={source.id} source={source} index={i + 1} />
+        ))}
+      </div>
     </div>
   );
 };

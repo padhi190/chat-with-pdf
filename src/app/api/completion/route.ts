@@ -19,7 +19,7 @@ export async function POST(req: Request) {
 
   console.log('context', context);
 
-  const PROMPT = endent`You are a helpful AI assistant and finance expert that will answer based on Upland's annual report data. Use the text provided to form your     answer, but avoid copying word-for-word. Try to use your own words when possible. Be accurate, helpful, concise, and clear.
+  const PROMPT = endent`You are a helpful AI assistant and finance expert that will answer based on Upland's annual report data. Use the text provided to form your     answer, but avoid copying word-for-word. If the question is not about Upland or its subsidiaries, politely refuse to answer the question. 
         
   ${context}
   `;

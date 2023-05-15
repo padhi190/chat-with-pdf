@@ -75,7 +75,7 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center min-h-screen p-24 bg-slate-800">
       <div className="flex flex-col justify-between w-full gap-8 px-4 py-8 rounded-xl h-[48rem] bg-slate-50">
-        <div className="pb-4 overflow-y-scroll">
+        <div className="pb-4 overflow-x-hidden overflow-y-scroll">
           <Chat messages={messages} isLoading={isLoading} /> 
           <div ref={messageRef}></div>
         </div>
@@ -86,6 +86,7 @@ export default function Home() {
             placeholder="type your question"
             id="query"
             className="w-full input"
+            autoComplete='off'
           />
           <button className="btn btn-primary">Send</button>
         </form>

@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import Typing from './typing';
 
 export interface Source {
@@ -46,9 +47,13 @@ interface Props {
 
 const ChatUser = ({ content }: { content: String }) => {
   return (
-    <div className="chat chat-end">
+    <motion.div
+      initial={{x: 2000}}
+      animate={{x: 0 }}
+      transition={{ type: 'spring', bounce: 0.1, duration: 0.6 }}
+      className="chat chat-end">
       <div className="chat-bubble chat-bubble-primary">{content}</div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -62,8 +67,8 @@ const SourceComp = ({ source, index }: { source: Source; index: number }) => {
           {source.metadata.source.split('/')[7]} page{' '}
           {source.metadata.loc.pageNumber.toString()}
         </div>
-        <div className="collapse-content">
-          {/* <p>{source.content.slice(0, 250)}..</p> */}
+        <div
+          className="collapse-content">
           <p>{source.content}</p>
         </div>
       </div>
@@ -79,7 +84,11 @@ const ChatAssistant = ({
   sources?: Source[];
 }) => {
   return (
-    <div className="chat chat-start">
+    <motion.div
+      initial={{x: -2000}}
+      animate={{ x: 0 }}
+      transition={{ type: 'spring', bounce: 0.1, duration: 0.6 }}
+      className="chat chat-start">
       <div className="chat-bubble chat-bubble-accent">
         <div className="mb-4">{content}</div>
 
@@ -87,7 +96,7 @@ const ChatAssistant = ({
           <SourceComp key={source.id} source={source} index={i + 1} />
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import Typing from './typing';
+import { useEffect, useRef } from 'react';
 
 export interface Source {
   id: number;
@@ -100,7 +101,12 @@ const ChatAssistant = ({
   );
 };
 
-export default function Chat({ messages, isLoading }: Props) {
+const Chat = ({messages, isLoading }: Props) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  },[messages, isLoading])
   return (
     <div className="flex flex-col gap-4">
       {messages.map((message, i) =>
@@ -115,6 +121,9 @@ export default function Chat({ messages, isLoading }: Props) {
         )
       )}
       {isLoading && <Typing />}
+      <div ref={ref} className='w-10 h-10 '></div>
     </div>
   );
 }
+
+export default Chat;

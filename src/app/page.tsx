@@ -20,13 +20,13 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const messageRef = useRef<HTMLDivElement>(null);
+  // const messageRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     if (!inputRef.current) return;
-    messageRef?.current?.scrollIntoView({ behavior: 'smooth' });
+    // messageRef?.current?.scrollIntoView({ behavior: 'smooth' });
 
     const query = inputRef.current.value
 
@@ -69,15 +69,15 @@ export default function Home() {
 
     const newAnswer = answer.message;
     setMessages(prev => ([...prev ?? [], { content: newAnswer.content, role: newAnswer.role, sources }]))
-    messageRef?.current?.scrollIntoView({ behavior: 'smooth' });
+    // messageRef?.current?.scrollIntoView({ behavior: 'smooth' });
   }
 
   return (
     <main className="flex flex-col items-center min-h-screen p-24 bg-slate-800">
       <div className="flex flex-col justify-between w-full gap-8 px-4 py-8 rounded-xl h-[48rem] bg-slate-50">
-        <div className="pb-4 overflow-x-hidden overflow-y-scroll">
+        <div className="pb-4 overflow-x-hidden">
           <Chat messages={messages} isLoading={isLoading} /> 
-          <div ref={messageRef}></div>
+          {/* <div ref={messageRef}></div> */}
         </div>
         <form className='flex gap-4' onSubmit={handleSubmit}>
           <input

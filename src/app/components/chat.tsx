@@ -65,8 +65,7 @@ const SourceComp = ({ source, index }: { source: Source; index: number }) => {
         <input type="checkbox" className="peer" />
         <div className="collapse-title">
           {`Source ${index}: `}
-          {source.metadata.source.split('/')[7]} page{' '}
-          {source.metadata.loc.pageNumber.toString()}
+          {source.metadata.source.split('/')[7]} page{` ${source.metadata.loc.pageNumber.toString()}`} {`(line ${source.metadata.loc.lines.from} - ${source.metadata.loc.lines.to})`}
         </div>
         <div
           className="collapse-content">

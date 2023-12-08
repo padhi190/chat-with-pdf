@@ -74,7 +74,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center min-h-screen p-24 bg-slate-800">
-      <div className="flex flex-col justify-between w-full gap-8 px-4 py-8 rounded-xl h-[48rem] bg-slate-50">
+      <div className="flex flex-col justify-between w-full gap-8 px-4 py-8 rounded-xl h-[36rem] bg-slate-50">
         <div className="pb-4 overflow-x-hidden">
           <Chat messages={messages} isLoading={isLoading} /> 
           {/* <div ref={messageRef}></div> */}
@@ -88,7 +88,7 @@ export default function Home() {
             className="w-full input"
             autoComplete='off'
           />
-          <button className="btn btn-primary">Send</button>
+          <button className="bg-indigo-600 btn btn-primary">Send</button>
         </form>
       </div>
     </main>

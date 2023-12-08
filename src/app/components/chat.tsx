@@ -53,7 +53,7 @@ const ChatUser = ({ content }: { content: String }) => {
       animate={{x: 0 }}
       transition={{ type: 'spring', bounce: 0.1, duration: 0.6 }}
       className="chat chat-end">
-      <div className="chat-bubble chat-bubble-primary">{content}</div>
+      <div className="bg-indigo-600 chat-bubble chat-bubble-primary">{content}</div>
     </motion.div>
   );
 };

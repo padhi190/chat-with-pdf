@@ -24,8 +24,8 @@ export default function Home() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!inputRef.current || inputRef.current.value.trim() === '') return;
     setIsLoading(true);
-    if (!inputRef.current) return;
     // messageRef?.current?.scrollIntoView({ behavior: 'smooth' });
 
     const query = inputRef.current.value

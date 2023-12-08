@@ -5,15 +5,11 @@ import { Answer } from './api/completion/route';
 import endent from 'endent';
 import Chat, { Source, Message } from './components/chat';
 
-
-
-
-
 export default function Home() {
 
   const initialMessage: Message[] = [{
     role: 'assistant',
-    content: "Hi, I'm your AI Assistant. What do you want to know from Upland's annual report?"
+    content: "Hi, I'm your AI Assistant. What would you like to know from Upland's annual report?"
   }]
 
   const [messages, setMessages] = useState<Message[]>(initialMessage);
@@ -73,24 +69,27 @@ export default function Home() {
   }
 
   return (
-    <main className="flex flex-col items-center min-h-screen p-24 bg-slate-800">
-      <div className="flex flex-col justify-between w-full gap-8 px-4 py-8 rounded-xl h-[36rem] bg-slate-50">
-        <div className="pb-4 overflow-x-hidden">
-          <Chat messages={messages} isLoading={isLoading} /> 
-          {/* <div ref={messageRef}></div> */}
+      <div className='flex w-full gap-2'>
+        <div className="flex flex-col justify-between w-2/3 gap-8 px-4 py-8 rounded-xl h-[50rem] bg-slate-50">
+          <div className="pb-4 overflow-x-hidden">
+            <Chat messages={messages} isLoading={isLoading} />
+            {/* <div ref={messageRef}></div> */}
+          </div>
+          <form className='flex gap-4' onSubmit={handleSubmit}>
+            <input
+              ref={inputRef}
+              type="text"
+              placeholder="type your question"
+              id="query"
+              className="w-full input"
+              autoComplete='off'
+            />
+            <button className="bg-indigo-600 btn btn-primary">Send</button>
+          </form>
         </div>
-        <form className='flex gap-4' onSubmit={handleSubmit}>
-          <input
-            ref={inputRef}
-            type="text"
-            placeholder="type your question"
-            id="query"
-            className="w-full input"
-            autoComplete='off'
-          />
-          <button className="bg-indigo-600 btn btn-primary">Send</button>
-        </form>
+        <div className="">
+          PDF
+        </div>
       </div>
-    </main>
   );
 }

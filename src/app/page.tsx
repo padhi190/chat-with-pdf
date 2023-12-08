@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useRef, useState } from 'react';
 import { Answer } from './api/completion/route';
 import endent from 'endent';
 import Chat, { Source, Message } from './components/chat';
+import PDFViewer from './components/pdfviewer';
 
 export default function Home() {
 
@@ -73,7 +74,7 @@ export default function Home() {
 
   return (
     <div className="flex w-full gap-2">
-      <div className="flex flex-col justify-between w-2/3 ">
+      <div className="flex flex-col justify-between w-1/2 ">
         <div className='flex flex-col justify-between h-[40rem] bg-slate-50 rounded-xl px-4 py-8 gap-8'>
           <div className="pb-4 overflow-x-hidden">
             <Chat messages={messages} isLoading={isLoading} />
@@ -82,7 +83,7 @@ export default function Home() {
             <input
               ref={inputRef}
               type="text"
-              placeholder="type your question"
+              placeholder="e.g. what was upland's revenue in 2022"
               id="query"
               className="w-full input"
               autoComplete="off"
@@ -92,18 +93,20 @@ export default function Home() {
         </div>
         <Card />
       </div>
-      <div className="">PDF</div>
+      <div className="w-1/2 h-auto">
+        <PDFViewer />
+      </div>
     </div>
   );
 }
 
 function Card() {
-  return <figure className="max-w-full p-8 mt-8 h-44 md:flex bg-slate-100 rounded-xl md:p-0 dark:bg-slate-800">
-    <img className="w-24 h-24 mx-auto rounded-full md:w-48 md:h-44 md:rounded-r-none md:rounded-l-xl" src="/pitra.jpeg" alt="" width="384" height="512" />
+  return <figure className="h-48 max-w-full p-8 mt-8 md:flex bg-slate-100 rounded-xl md:p-0 dark:bg-slate-800">
+    <img className="w-24 h-24 mx-auto rounded-full md:w-48 md:h-48 md:rounded-r-none md:rounded-l-xl" src="/pitra.jpeg" alt="" width="384" height="512" />
     <div className="pt-6 space-y-4 text-center md:p-6 md:text-left">
       <blockquote>
         <p className="font-medium text-md">
-          This proof of concept, known as ChatPDF, aims to provide a unique and interactive experience for users to delve into the annual report through a chat interface.
+        Here&apos;s how it works: The PDF document is divided into smaller sections, and each section is stored in a database with its corresponding embedding vector. When users ask questions, a similarity search is performed against the embedding vectors to retrieve relevant sections.
         </p>
       </blockquote>
       <figcaption className="font-medium">

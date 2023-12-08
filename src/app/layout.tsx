@@ -26,9 +26,9 @@ export default function RootLayout({
              ChatPDF 
             </Link>
             <div className="flex items-center gap-4 align-baseline">
-              <Link href={'/about'} className='text-xl text-white'>
+              {/* <Link href={'/about'} className='text-xl text-white'>
                 About
-              </Link>
+              </Link> */}
             </div>
           </nav>
           <main className="px-10 py-4">{children}</main>

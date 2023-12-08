@@ -31,7 +31,7 @@ export default function RootLayout({
               </Link>
             </div>
           </nav>
-          <main className="flex flex-grow w-full px-10 py-4">{children}</main>
+          <main className="px-10 py-4">{children}</main>
         </div>
       </body>
     </html>

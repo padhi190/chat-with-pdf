@@ -17,6 +17,9 @@ export default function Home() {
 
   const inputRef = useRef<HTMLInputElement>(null);
   // const messageRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    inputRef.current?.focus();
+  },[])
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -69,27 +72,49 @@ export default function Home() {
   }
 
   return (
-      <div className='flex w-full gap-2'>
-        <div className="flex flex-col justify-between w-2/3 gap-8 px-4 py-8 rounded-xl h-[50rem] bg-slate-50">
+    <div className="flex w-full gap-2">
+      <div className="flex flex-col justify-between w-2/3 ">
+        <div className='flex flex-col justify-between h-[40rem] bg-slate-50 rounded-xl px-4 py-8 gap-8'>
           <div className="pb-4 overflow-x-hidden">
             <Chat messages={messages} isLoading={isLoading} />
-            {/* <div ref={messageRef}></div> */}
           </div>
-          <form className='flex gap-4' onSubmit={handleSubmit}>
+          <form className="flex gap-4" onSubmit={handleSubmit}>
             <input
               ref={inputRef}
               type="text"
               placeholder="type your question"
               id="query"
               className="w-full input"
-              autoComplete='off'
+              autoComplete="off"
             />
             <button className="bg-indigo-600 btn btn-primary">Send</button>
           </form>
         </div>
-        <div className="">
-          PDF
-        </div>
+        <Card />
       </div>
+      <div className="">PDF</div>
+    </div>
   );
 }
+
+function Card() {
+  return <figure className="max-w-full p-8 mt-8 h-44 md:flex bg-slate-100 rounded-xl md:p-0 dark:bg-slate-800">
+    <img className="w-24 h-24 mx-auto rounded-full md:w-48 md:h-44 md:rounded-r-none md:rounded-l-xl" src="/pitra.jpeg" alt="" width="384" height="512" />
+    <div className="pt-6 space-y-4 text-center md:p-6 md:text-left">
+      <blockquote>
+        <p className="font-medium text-md">
+          This proof of concept, known as ChatPDF, aims to provide a unique and interactive experience for users to delve into the annual report through a chat interface.
+        </p>
+      </blockquote>
+      <figcaption className="font-medium">
+        <div className="text-sky-500 dark:text-sky-400">
+          Pitra Pamungkas
+        </div>
+        <div className="text-slate-700 dark:text-slate-500">
+          Front End Engineer
+        </div>
+      </figcaption>
+    </div>
+  </figure>;
+}
+

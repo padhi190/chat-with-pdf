@@ -101,11 +101,11 @@ export default function Home() {
 }
 
 function Card() {
-  return <figure className="h-48 max-w-full p-8 mt-8 md:flex bg-slate-100 rounded-xl md:p-0 dark:bg-slate-800">
+  return <figure className="h-48 max-w-full p-8 mt-8 md:flex bg-slate-100 rounded-xl md:p-0">
     <img className="w-24 h-24 mx-auto rounded-full md:w-48 md:h-48 md:rounded-r-none md:rounded-l-xl" src="/pitra.jpeg" alt="" width="384" height="512" />
     <div className="pt-6 space-y-4 text-center md:p-6 md:text-left">
       <blockquote>
-        <p className="font-medium text-md">
+        <p className="font-medium text-slate-600 text-md">
         Here&apos;s how it works: The PDF document is divided into smaller sections, and each section is stored in a database with its corresponding embedding vector. When users ask questions, a similarity search is performed against the embedding vectors to retrieve relevant sections.
         </p>
       </blockquote>

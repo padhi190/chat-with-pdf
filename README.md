@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Chat with Annual Report
 
-## Getting Started
+![chatpdf](example.gif)
 
-First, run the development server:
+This is Proof of Concept project where I divide an annual report PDF into smaller sections, and each section is stored in a database with its corresponding embedding vector. When users ask questions, a similarity search is performed against the embedding vectors to retrieve relevant sections.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+$ npm i 
+
+$ npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- NextJS
+- Supabase with `pgvector` extension
+- TailwindCSS
+- Langchain
 
-[http://localhost:3000/api/hello](http://localhost:3000/api/hello) is an endpoint that uses [Route Handlers](https://beta.nextjs.org/docs/routing/route-handlers). This endpoint can be edited in `app/api/hello/route.ts`.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Workflow
+<img src="./chatpdf.png" width="400">
 
-## Learn More
+### Data Ingestion
 
-To learn more about Next.js, take a look at the following resources:
+- **PDF Chunking**: Split the PDF document into smaller chunks or sections to process them individually. This is particularly useful when dealing with large documents that might be computationally expensive to handle as a whole.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Preprocessing**: Apply standard preprocessing techniques to the extracted text, including tokenization, lowercase conversion, removal of punctuation, stop words, and special characters. 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Embedding Generation**: Utilize the OpenAI Embedding Model to generate embeddings for each preprocessed chunks. These embeddings capture semantic information and encode it in fixed-length vector.
 
-## Deploy on Vercel
+- **Vector DB Storage**: Store the generated document embeddings in a vector database (in this case, I'm using Supabase with `pgvector` extension instead of "real" vector DB) for efficient retrieval and similarity searches. The vector database enables fast indexing and searching based on the similarity of document embeddings. 
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<img src="./data-ingestion.gif" width="400">
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Query Processing
+
+- The query is fed into the OpenAI Embedding model to generate an embedding.
+- The embedding of the query is used to perform a similarity search in the vector database.
+- The relevant chunk from the database is then used as context and sent to the OpenAI chat completion API to obtain the final answer.
+
+<img src="./query-processing.gif" width="400">

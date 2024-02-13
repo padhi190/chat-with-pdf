@@ -19,7 +19,7 @@ $ npm run dev
 
 
 ## Workflow
-<img src="./chatpdf.png" width="400">
+![chatpdf](chatpdf.png)
 
 ### Data Ingestion
 
@@ -31,7 +31,7 @@ $ npm run dev
 
 - **Vector DB Storage**: Store the generated document embeddings in a vector database (in this case, I'm using Supabase with `pgvector` extension instead of "real" vector DB) for efficient retrieval and similarity searches. The vector database enables fast indexing and searching based on the similarity of document embeddings. 
 
-<img src="./data-ingestion.gif" width="400">
+![chatpdf](data-ingestion.gif)
 
 ### Query Processing
 
@@ -39,4 +39,4 @@ $ npm run dev
 - The embedding of the query is used to perform a similarity search in the vector database.
 - The relevant chunk from the database is then used as context and sent to the OpenAI chat completion API to obtain the final answer.
 
-<img src="./query-processing.gif" width="400">
+![chatpdf](query-processing.gif)
